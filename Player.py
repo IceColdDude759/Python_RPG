@@ -6,7 +6,7 @@ class Player(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 		self.engine = engine
 		self.friction = -0.09
-		self.image = Spritesheet('resources/Blockz').get_sprite('white.png')
+		self.image = pygame.image.load('img/rpgTile211.png')
 		self.image = pygame.transform.scale(self.image, (32,32))
 		self.rect = self.image.get_rect()
 		self.position, self.velocity = pygame.math.Vector2(0,0), pygame.math.Vector2(0,0)

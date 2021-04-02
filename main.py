@@ -24,8 +24,8 @@ class Engine():
 		self.title = "A GAME"
 		pygame.display.set_caption(self.title)
 
-		self.main_tiles = Spritesheet('resources/Blockz')
-		self.world = TileMap('map.csv', self.main_tiles, self)
+		#self.main_tiles = Spritesheet('resources/Blockz')
+		self.world = TileMap('map.csv', self)
 		self.left_border = 0
 		self.top_border = 0
 		self.bottom_border = self.world.map_h
