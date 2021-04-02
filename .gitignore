@@ -112,3 +112,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+map.csv
+map/map.tmx
+*.tsx
