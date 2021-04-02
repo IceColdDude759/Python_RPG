@@ -46,60 +46,109 @@ class TileMap():
 		for row in map:
 			x = 0
 			for tile in row:
+				#grass
 				if tile == '0':
 					tiles.append(Tile('img/rpgTile000', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '1':
 					tiles.append(Tile('img/rpgTile001', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '2':
 					tiles.append(Tile('img/rpgTile002', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '3':
-					tiles.append(Tile('img/rpgTile005', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '4':
-					tiles.append(Tile('img/rpgTile006', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '5':
-					tiles.append(Tile('img/rpgTile007', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '6':
-					tiles.append(Tile('img/rpgTile010', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '7':
-					tiles.append(Tile('img/rpgTile011', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '8':
-					tiles.append(Tile('img/rpgTile012', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '9':
 					tiles.append(Tile('img/rpgTile018', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '10':
 					tiles.append(Tile('img/rpgTile019', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '11':
 					tiles.append(Tile('img/rpgTile020', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '12':
-					tiles.append(Tile('img/rpgTile023', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '13':
-					tiles.append(Tile('img/rpgTile024', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '14':
-					tiles.append(Tile('img/rpgTile025', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '15':
-					tiles.append(Tile('img/rpgTile028', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '16':
-					tiles.append(Tile('img/rpgTile029', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '17':
-					tiles.append(Tile('img/rpgTile030', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '18':
 					tiles.append(Tile('img/rpgTile036', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '19':
 					tiles.append(Tile('img/rpgTile037', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '20':
 					tiles.append(Tile('img/rpgTile038', x * self.tile_size, y * self.tile_size, False))
+
+				#water
+				elif tile == '6':
+					tiles.append(Tile('img/rpgTile010', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '7':
+					tiles.append(Tile('img/rpgTile011', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '8':
+					tiles.append(Tile('img/rpgTile012', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '15':
+					tiles.append(Tile('img/rpgTile028', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '16':
+					tiles.append(Tile('img/rpgTile029', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '17':
+					tiles.append(Tile('img/rpgTile030', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '24':
+					tiles.append(Tile('img/rpgTile044', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '25':
+					tiles.append(Tile('img/rpgTile045', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '26':
+					tiles.append(Tile('img/rpgTile046', x * self.tile_size, y * self.tile_size, True))
+
+				#dirt
+				elif tile == '3':
+					tiles.append(Tile('img/rpgTile005', x * self.tile_size, y * self.tile_size, False))
+				elif tile == '4':
+					tiles.append(Tile('img/rpgTile006', x * self.tile_size, y * self.tile_size, False))
+				elif tile == '5':
+					tiles.append(Tile('img/rpgTile007', x * self.tile_size, y * self.tile_size, False))
+				elif tile == '12':
+					tiles.append(Tile('img/rpgTile023', x * self.tile_size, y * self.tile_size, False))
+				elif tile == '13':
+					tiles.append(Tile('img/rpgTile024', x * self.tile_size, y * self.tile_size, False))
+				elif tile == '14':
+					tiles.append(Tile('img/rpgTile025', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '21':
 					tiles.append(Tile('img/rpgTile041', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '22':
 					tiles.append(Tile('img/rpgTile042', x * self.tile_size, y * self.tile_size, False))
 				elif tile == '23':
 					tiles.append(Tile('img/rpgTile043', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '24':
-					tiles.append(Tile('img/rpgTile044', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '25':
-					tiles.append(Tile('img/rpgTile045', x * self.tile_size, y * self.tile_size, False))
-				elif tile == '26':
-					tiles.append(Tile('img/rpgTile046', x * self.tile_size, y * self.tile_size, False))
+				
+				#tree
+				elif tile == '27':
+					tiles.append(Tile('img/rpgTile177', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '28':
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, True))
+					tiles.append(Tile('img/rpgTile179', x * self.tile_size, y * self.tile_size, True))
+					#tiles.append(Tile('img/rpgTile157', x * self.tile_size, y * self.tile_size, True))
+
+				elif tile == '29':
+					tiles.append(Tile('img/rpgTile197', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '30':
+					tiles.append(Tile('img/rpgTile199', x * self.tile_size, y * self.tile_size, True))
+
+				#house
+				elif tile == '31':
+					tiles.append(Tile('img/rpgTile200', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '32':
+					tiles.append(Tile('img/rpgTile201', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '33':
+					tiles.append(Tile('img/rpgTile202', x * self.tile_size, y * self.tile_size, True))
+				
+				#nps
+				elif tile == '34':
+					tiles.append(Tile('img/rpgTile203', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '35':
+					tiles.append(Tile('img/rpgTile204', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '36':
+					tiles.append(Tile('img/rpgTile205', x * self.tile_size, y * self.tile_size, True))
+				
+				#objects
+				elif tile == '37':
+					tiles.append(Tile('img/rpgTile206', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '38':
+					tiles.append(Tile('img/rpgTile207', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '39':
+					tiles.append(Tile('img/rpgTile208', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '40':
+					tiles.append(Tile('img/rpgTile209', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '41':
+					tiles.append(Tile('img/rpgTile210', x * self.tile_size, y * self.tile_size, True))
+				elif tile == '42':
+					tiles.append(Tile('img/rpgTile211', x * self.tile_size, y * self.tile_size, True))
+				
 					# Move to next tile in current row
 				x += 1
 

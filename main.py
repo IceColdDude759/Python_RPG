@@ -36,7 +36,7 @@ class Engine():
 		self.border = Border(self)
 		self.auto = Auto(self)
 		self.camera.setmethod(self.border)
-		self.player.position.x, self.player.position.y = self.world.start_x, self.world.start_y
+		#self.player.position.x, self.player.position.y = self.world.start_x, self.world.start_y
 		self.dt = 0
 		self.tiles = self.world.tiles
 		self.init_keys()
@@ -100,7 +100,8 @@ class Engine():
 		self.camera.scroll()
 
 	def draw(self):
-		self.screen.fill((0,200,240))
+		#self.screen.fill((0,200,240))
+		self.screen.fill((0,0,0))
 		self.world.draw_world()
 		self.player.draw()
 		#pygame.draw.rect(self.screen, (255, 0, 0), self.player.rect, 2)

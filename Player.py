@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
 		self.image = pygame.image.load('img/rpgTile211.png')
 		self.image = pygame.transform.scale(self.image, (32,32))
 		self.rect = self.image.get_rect()
-		self.position, self.velocity = pygame.math.Vector2(0,0), pygame.math.Vector2(0,0)
+		self.position, self.velocity = pygame.math.Vector2(100,100), pygame.math.Vector2(0,0)
 		self.acceleration = pygame.math.Vector2(5,5)
 		self.max_vel = 8
 		self.bump = False
