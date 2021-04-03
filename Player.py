@@ -146,11 +146,6 @@ class Player(pygame.sprite.Sprite):
 		self.image = self.idle_img
 
 
-
-
-
-
-
 	def get_hits(self, tiles):
 		hits = []
 		if pygame.sprite.spritecollideany(self, self.engine.house_group):

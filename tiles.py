@@ -79,6 +79,7 @@ class TileMap():
 				elif tile == '15':
 					tiles.append(Tile('img/rpgTile028', x * self.tile_size, y * self.tile_size, True))
 				elif tile == '16':
+					self.engine.water_group.add(Water(x * self.tile_size, y * self.tile_size, self.tile_size))
 					tiles.append(Tile('img/rpgTile029', x * self.tile_size, y * self.tile_size, True))
 				elif tile == '17':
 					tiles.append(Tile('img/rpgTile030', x * self.tile_size, y * self.tile_size, True))

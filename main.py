@@ -24,33 +24,39 @@ class Engine():
 		self.title = "A GAME"
 		pygame.display.set_caption(self.title)
 
-		#self.main_tiles = Spritesheet('resources/Blockz')
+		
+		self.reset_level(True)
+		
+		self.dt = 0
+		self.menu = False
+		self.game_state = 0			
+		self.tick = 0
+		self.init_keys()
+
+
+	def reset_level(self, level):
+		self.game_state = 0
 		self.house_group = HomeGroup(self)
+		self.coin_group = ModifiedGroup(self)
+		self.water_group = ModifiedGroup(self)
+		self.exit_group = ModifiedGroup(self)
+
 		self.world = TileMap('map.csv', self)
+		self.tiles = self.world.tiles
 		self.left_border = 0
 		self.top_border = 0
 		self.bottom_border = self.world.map_h
 		self.right_border = self.world.map_w
+
 		self.player = Player(self)
 		self.camera = Camera(self)
 		self.follow = Follow(self)
 		self.border = Border(self)
 		self.auto = Auto(self)
 		self.camera.setmethod(self.border)
-		
-		#self.player.position.x, self.player.position.y = self.world.start_x, self.world.start_y
-		self.dt = 0
-		self.game_state = 0
-		self.tick = 0
-		self.tiles = self.world.tiles
-		self.init_keys()
-
-
-	def reset_level(self, level):
-		pass
 
 	
-	def menu(self):
+	def menuload(self):
 		pass
 
 	
@@ -103,18 +109,56 @@ class Engine():
 		self.tick = self.clock.get_time()
 		self.player.update()
 		self.camera.scroll()
+		self.water_group.update(self.dt)
 
 	def draw(self):
 		#self.screen.fill((0,200,240))
 		self.screen.fill((0,0,0))
 		self.world.draw_world()
-		
+		self.water_group.draw()
 		self.house_group.draw()
 		self.player.draw()
 		
-		pygame.draw.rect(self.screen, (255, 0, 0), self.player.rect, 2)
+		#pygame.draw.rect(self.screen, (255, 0, 0), self.player.rect, 2)
 		pygame.display.update()
 
+
+	def mainloop(self):
+
+		self.input()
+
+		if self.menu:
+			self.mainmenu.draw()
+			if self.mainmenu.buttons['Exit'][1]:
+				self.running = False
+			if self.mainmenu.buttons['Start'][1]:
+				self.menu = False
+			if self.mainmenu.buttons['Options'][1]:
+				pass
+		
+		else :
+			
+
+			if self.game_state == 0:
+				self.draw()
+				self.update()
+				#self.draw_hud()
+
+			elif self.game_state == -1:
+				#for combat
+				pass
+
+			elif self.game_state == 2:
+				#dialoge
+				pass
+
+			elif self.game_state == 1:
+				#for entering house and shit
+				pass
+
+			elif self.game_state == 5:
+				#pause menu
+				pass
 
 
 
@@ -124,6 +168,4 @@ class Engine():
 if __name__=="__main__":
 	engine = Engine()
 	while engine.running :
-		engine.input()
-		engine.update()
-		engine.draw()	
+		engine.mainloop()

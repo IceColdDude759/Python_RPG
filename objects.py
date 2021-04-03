@@ -64,11 +64,11 @@ class Enemy1(pygame.sprite.Sprite):
 				self.image = self.images_left[self.index]
 
 
-class Lava(pygame.sprite.Sprite):
+class Water(pygame.sprite.Sprite):
 	def __init__(self, x, y,tile_size):
 		pygame.sprite.Sprite.__init__(self)
-		img = pygame.image.load('img/lava.png')
-		self.image = pygame.transform.scale(img, (tile_size, tile_size // 2))
+		img = pygame.image.load('img/waterhd.png')
+		self.image = pygame.transform.scale(img, (tile_size, tile_size))
 		self.rect = self.image.get_rect()
 		self.rect.x = x
 		self.rect.y = y
@@ -77,9 +77,9 @@ class Lava(pygame.sprite.Sprite):
 	def update(self,tick):
 		self.tick +=tick
 		# To animate the lava //in ms 4fps
-		if self.tick > 250 :
+		if self.tick > 50 :
 			self.tick = 0
-			self.image = pygame.transform.flip(self.image, True, False)
+			self.image = pygame.transform.flip(self.image, True, True)
 
 
 class House(pygame.sprite.Sprite):
@@ -104,10 +104,7 @@ class House(pygame.sprite.Sprite):
 		self.rect.x = x 
 		self.rect.y = y + self.offset
 		self.rect.h = self.rect.h - self.offset
-
-
 		
-
 
 class Enemy2(pygame.sprite.Sprite):
 	def __init__(self, x, y,tile_size):
