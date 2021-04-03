@@ -108,6 +108,7 @@ class TileMap():
 				
 				#tree
 				elif tile == '27':
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, True))
 					tiles.append(Tile('img/rpgTile177', x * self.tile_size, y * self.tile_size, True))
 				elif tile == '28':
 					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, True))
@@ -115,8 +116,10 @@ class TileMap():
 					#tiles.append(Tile('img/rpgTile157', x * self.tile_size, y * self.tile_size, True))
 
 				elif tile == '29':
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, True))
 					tiles.append(Tile('img/rpgTile197', x * self.tile_size, y * self.tile_size, True))
 				elif tile == '30':
+					
 					tiles.append(Tile('img/rpgTile199', x * self.tile_size, y * self.tile_size, True))
 
 				#house

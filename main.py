@@ -38,6 +38,8 @@ class Engine():
 		self.camera.setmethod(self.border)
 		#self.player.position.x, self.player.position.y = self.world.start_x, self.world.start_y
 		self.dt = 0
+		self.game_state = 0
+		self.tick = 0
 		self.tiles = self.world.tiles
 		self.init_keys()
 
@@ -96,6 +98,7 @@ class Engine():
 	def update(self):
 		self.dt = self.clock.tick(60) * .001 * self.FPS 
 		#print(self.clock.tick(60))
+		self.tick = self.clock.get_time()
 		self.player.update()
 		self.camera.scroll()
 

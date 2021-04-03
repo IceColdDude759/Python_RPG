@@ -6,15 +6,20 @@ class Player(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 		self.engine = engine
 		self.friction = -0.09
-		self.image = pygame.image.load('img/rpgTile211.png')
-		self.image = pygame.transform.scale(self.image, (32,32))
+		self.facing_right = True
+		self.load()
 		self.rect = self.image.get_rect()
 		self.position, self.velocity = pygame.math.Vector2(100,100), pygame.math.Vector2(0,0)
 		self.acceleration = pygame.math.Vector2(5,5)
 		self.max_vel = 8
 		self.bump = False
+		self.index = 0
+		self.tick = 0
+		self.bump = False
 
 	def draw(self):
+		self.animate()
+
 		self.engine.screen.blit(self.image, (self.rect.x - self.engine.camera.offset.x, self.rect.y - self.engine.camera.offset.y))
 
 
@@ -64,6 +69,85 @@ class Player(pygame.sprite.Sprite):
 	def limit_y_velocity(self, max_vel):
 		self.velocity.y = max(-max_vel, min(self.velocity.y, max_vel))
 		if abs(self.velocity.y) < .11: self.velocity.y = 0
+
+
+	def img_load(self, name):
+	
+		img = pygame.image.load(name+".png")
+		img = pygame.transform.scale(img, (50, 80))
+		return img
+
+
+	def animate (self):
+			
+
+		if self.engine.game_state == -1:
+			#death animeation
+			death=self.position.y
+			self.loop_delay = not(self.loop_delay)
+			if self.rect.y > death-200 and self.loop_delay:
+				self.image = self.dead_img
+				self.rect.y -= 1
+		else :
+			#jump animeation
+			if   self.velocity.y < 0:
+				if self.facing_right:
+					self.image = self.jump_img[0]
+				else:
+					self.image = self.jump_img[2]
+				return
+			if  self.velocity.y > 0:
+				if self.facing_right:
+					self.image = self.jump_img[1]
+				else:
+					self.image = self.jump_img[3]
+				return
+
+			#walk animation
+			self.tick += self.engine.tick
+			if self.velocity.x != 0  and self.tick > 80:
+				self.tick = 0
+				self.index +=1
+				if self.index >= len(self.right_img):
+					self.index = 0
+				if self.velocity.x > 0 :
+					self.image = self.right_img[self.index]
+				elif self.velocity.x < 0 :
+					self.image = self.left_img[self.index]
+				return
+			#idle animation
+			if 	self.velocity.x == 0  and self.tick > 150 :
+				self.image = self.idle_img
+						
+
+	def load(self):
+		self.char_name = "character/character_robot_"
+		self.left_img = []
+		self.right_img = []
+		self.jump_img = []
+		self.idle_img = self.img_load(self.char_name +"idle")
+		#self.dead_img = self.img_load('img/player/1g2')
+
+		for i in range(0,8):
+			self.right_img.append(self.img_load(self.char_name +f"walk{i}"))
+
+		for i in range(0,8):
+			self.left_img.append(pygame.transform.flip(self.right_img[i], True, False))
+
+		for i in range(0,2):
+			self.jump_img.append(self.img_load(self.char_name +f"jump{i}"))
+
+		for i in range(0,2):
+			self.jump_img.append(pygame.transform.flip(self.jump_img[i] ,True, False))
+
+		#self.coin_fx = pygame.mixer.Sound('img/coin.wav')
+		#self.coin_fx.set_volume(0.5)
+		self.image = self.idle_img
+
+
+
+
+
 
 
 	def get_hits(self, tiles):
