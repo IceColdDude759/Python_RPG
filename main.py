@@ -2,7 +2,7 @@ import pygame
 from spritesheetparser import Spritesheet
 from tiles import TileMap
 from camera import *
-from Player import Player
+from Player import *
 
 
 
@@ -25,6 +25,7 @@ class Engine():
 		pygame.display.set_caption(self.title)
 
 		#self.main_tiles = Spritesheet('resources/Blockz')
+		self.house_group = HomeGroup(self)
 		self.world = TileMap('map.csv', self)
 		self.left_border = 0
 		self.top_border = 0
@@ -36,6 +37,7 @@ class Engine():
 		self.border = Border(self)
 		self.auto = Auto(self)
 		self.camera.setmethod(self.border)
+		
 		#self.player.position.x, self.player.position.y = self.world.start_x, self.world.start_y
 		self.dt = 0
 		self.game_state = 0
@@ -106,8 +108,11 @@ class Engine():
 		#self.screen.fill((0,200,240))
 		self.screen.fill((0,0,0))
 		self.world.draw_world()
+		
+		self.house_group.draw()
 		self.player.draw()
-		#pygame.draw.rect(self.screen, (255, 0, 0), self.player.rect, 2)
+		
+		pygame.draw.rect(self.screen, (255, 0, 0), self.player.rect, 2)
 		pygame.display.update()
 
 

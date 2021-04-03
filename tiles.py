@@ -1,4 +1,5 @@
 import pygame, csv, os
+from objects import *
 
 class Tile(pygame.sprite.Sprite):
 	def __init__(self, image, x, y,can_collide):
@@ -23,6 +24,8 @@ class TileMap():
 		self.map_surface = pygame.Surface((self.map_w, self.map_h))
 		self.map_surface.set_colorkey((0, 0, 0))
 		self.load_map()
+		self.tiles=[elem for elem in self.tiles if elem.can_collide]
+	
 
 	def draw_world(self):
 		self.engine.screen.blit(self.map_surface, (0 - self.engine.camera.offset.x, 0 - self.engine.camera.offset.y))
@@ -119,7 +122,7 @@ class TileMap():
 					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, True))
 					tiles.append(Tile('img/rpgTile197', x * self.tile_size, y * self.tile_size, True))
 				elif tile == '30':
-					
+
 					tiles.append(Tile('img/rpgTile199', x * self.tile_size, y * self.tile_size, True))
 
 				#house
@@ -128,7 +131,9 @@ class TileMap():
 				elif tile == '32':
 					tiles.append(Tile('img/rpgTile201', x * self.tile_size, y * self.tile_size, True))
 				elif tile == '33':
-					tiles.append(Tile('img/rpgTile202', x * self.tile_size, y * self.tile_size, True))
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+					self.engine.house_group.add(House( x * self.tile_size, y * self.tile_size, self.tile_size, 'small'))
+					#tiles.append(Tile('img/rpgTile202', x * self.tile_size, y * self.tile_size, True))
 				
 				#nps
 				elif tile == '34':

@@ -9,6 +9,7 @@ class Player(pygame.sprite.Sprite):
 		self.facing_right = True
 		self.load()
 		self.rect = self.image.get_rect()
+		self.rect.w, self.rect.h = 27, 25
 		self.position, self.velocity = pygame.math.Vector2(100,100), pygame.math.Vector2(0,0)
 		self.acceleration = pygame.math.Vector2(5,5)
 		self.max_vel = 8
@@ -20,7 +21,7 @@ class Player(pygame.sprite.Sprite):
 	def draw(self):
 		self.animate()
 
-		self.engine.screen.blit(self.image, (self.rect.x - self.engine.camera.offset.x, self.rect.y - self.engine.camera.offset.y))
+		self.engine.screen.blit(self.image, (self.rect.x -12 - self.engine.camera.offset.x, self.rect.y - 54 - self.engine.camera.offset.y))
 
 
 	def update(self):
@@ -152,11 +153,14 @@ class Player(pygame.sprite.Sprite):
 
 	def get_hits(self, tiles):
 		hits = []
+		if pygame.sprite.spritecollideany(self, self.engine.house_group):
+			hits.append(pygame.sprite.spritecollideany(self, self.engine.house_group))
+		
 		for tile in tiles:
 			if self.rect.colliderect(tile):
 				if tile.can_collide :
 					hits.append(tile)
-					#print(tile.rect)
+					#print(tile.rect)		
 		return hits
 
 
@@ -193,3 +197,23 @@ class Player(pygame.sprite.Sprite):
 				self.velocity.y = 0
 				self.bump = True
 		
+
+class ModifiedGroup(pygame.sprite.Group):
+	def __init__(self, engine):
+		pygame.sprite.Group.__init__(self)
+		self.engine = engine
+	def draw(self):
+		sprites = self.sprites()
+		for spr in sprites:
+			self.engine.screen.blit(spr.image, (spr.rect.x - self.engine.camera.offset.x, spr.rect.y - self.engine.camera.offset.y))
+
+
+class HomeGroup(pygame.sprite.Group):
+	def __init__(self, engine):
+		pygame.sprite.Group.__init__(self)
+		self.engine = engine
+	def draw(self):
+		sprites = self.sprites()
+		for spr in sprites:	
+			self.engine.screen.blit(spr.image, (spr.rect.x - self.engine.camera.offset.x, spr.rect.y - spr.offset - self.engine.camera.offset.y))
+			
