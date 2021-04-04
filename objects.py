@@ -3,6 +3,32 @@ from pygame.locals import Rect
 from random import randint
 
 
+class Tile(pygame.sprite.Sprite):
+	def __init__(self, image, x, y,can_collide):
+		pygame.sprite.Sprite.__init__(self)
+		self.image = pygame.image.load(image+'.png')
+		#self.image = pygame.transform.scale(img, (50, 80))
+		#self.image = spritesheet.get_sprite(image), spritesheet
+		self.rect = self.image.get_rect()
+		self.rect.x, self.rect.y = x, y
+		self.can_collide = can_collide
+
+	def draw(self, surface):
+		surface.blit(self.image, (self.rect.x, self.rect.y))
+
+class Tree(pygame.sprite.Sprite):
+	def __init__(self, x, y):
+		pygame.sprite.Sprite.__init__(self)
+		self.image = pygame.image.load('img/Tree(1).png')
+		self.image = pygame.transform.scale(self.image, (32, 64))
+		self.rect = self.image.get_rect()
+		self.rect.x, self.rect.y = x, y
+		self.can_collide = True
+	
+	def draw(self, surface):
+		surface.blit(self.image, (self.rect.x, self.rect.y))
+
+
 
 class Enemy1(pygame.sprite.Sprite):
 
@@ -75,7 +101,7 @@ class Grass(pygame.sprite.Sprite):
 			self.images.append(self.image)
 			self.image = pygame.transform.flip(self.image, True, False)
 			self.images.append(self.image)
-		#self.images[1],self.images[2] =self.images[2],self.images[1]
+		self.images[1],self.images[2] =self.images[2],self.images[1]
 		
 		self.rect = self.image.get_rect()
 		self.rect.x = x
@@ -86,7 +112,7 @@ class Grass(pygame.sprite.Sprite):
 	def update(self,tick):
 		self.tick +=tick
 		# To animate the lava //in ms 4fps
-		if self.tick > 200 and randint(0,1):
+		if self.tick > 100 and randint(0,1):
 			self.tick = 0
 			self.index += 1
 			if self.index >= len(self.images):

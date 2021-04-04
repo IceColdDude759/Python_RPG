@@ -1,18 +1,6 @@
 import pygame, csv, os
 from objects import *
 
-class Tile(pygame.sprite.Sprite):
-	def __init__(self, image, x, y,can_collide):
-		pygame.sprite.Sprite.__init__(self)
-		self.image = pygame.image.load(image+".png")
-		#self.image = pygame.transform.scale(img, (50, 80))
-		#self.image = spritesheet.get_sprite(image), spritesheet
-		self.rect = self.image.get_rect()
-		self.rect.x, self.rect.y = x, y
-		self.can_collide = can_collide
-
-	def draw(self, surface):
-		surface.blit(self.image, (self.rect.x, self.rect.y))
 
 class TileMap():
 	def __init__(self, filename, engine):
@@ -30,9 +18,11 @@ class TileMap():
 	def draw_world(self):
 		self.engine.screen.blit(self.map_surface, (0 - self.engine.camera.offset.x, 0 - self.engine.camera.offset.y))
 
+
 	def load_map(self):
 		for tile in self.tiles:
 			tile.draw(self.map_surface)
+
 
 	def read_csv(self, filename):
 		map = []
@@ -41,6 +31,7 @@ class TileMap():
 			for row in data:
 				map.append(list(row))
 		return map
+
 
 	def load_tiles(self, filename):
 		tiles = []
@@ -170,7 +161,8 @@ class TileMap():
 
 				#tree
 				elif tile == '45':
-					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+					#tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+					tiles.append(Tree(x * self.tile_size, y * self.tile_size))
 				
 				#deadtree
 				elif tile == '46':
