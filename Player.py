@@ -21,7 +21,7 @@ class Player(pygame.sprite.Sprite):
 	def draw(self):
 		self.animate()
 
-		self.engine.screen.blit(self.image, (self.rect.x -12 - self.engine.camera.offset.x, self.rect.y - 54 - self.engine.camera.offset.y))
+		self.engine.screen.blit(self.image, (self.rect.x -12 - self.engine.camera.offset.x, self.rect.y - 24 - self.engine.camera.offset.y))
 
 
 	def update(self):
@@ -75,7 +75,7 @@ class Player(pygame.sprite.Sprite):
 	def img_load(self, name):
 	
 		img = pygame.image.load(name+".png")
-		img = pygame.transform.scale(img, (50, 80))
+		img = pygame.transform.scale(img, (50, 60))
 		return img
 
 

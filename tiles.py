@@ -158,6 +158,32 @@ class TileMap():
 				elif tile == '42':
 					tiles.append(Tile('img/rpgTile211', x * self.tile_size, y * self.tile_size, True))
 				
+				#teleport
+				elif tile == '43':
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+					self.engine.teleport_group.add(Teleport(x * self.tile_size, y * self.tile_size, self.tile_size))
+
+				#grass
+				elif tile == '44':
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+					self.engine.grass_group.add(Grass(x * self.tile_size, y * self.tile_size, self.tile_size))
+
+				#tree
+				elif tile == '45':
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+				
+				#deadtree
+				elif tile == '46':
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+				
+				#flower
+				elif tile == '47':
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+				
+				#fire
+				elif tile == '48':
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+				
 					# Move to next tile in current row
 				x += 1
 

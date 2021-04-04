@@ -1,5 +1,6 @@
 import pygame
-from pygame import Rect
+from pygame.locals import Rect
+from random import randint
 
 
 
@@ -64,6 +65,36 @@ class Enemy1(pygame.sprite.Sprite):
 				self.image = self.images_left[self.index]
 
 
+class Grass(pygame.sprite.Sprite):
+	def __init__(self, x, y, tile_size):
+		pygame.sprite.Sprite.__init__(self)
+		self.images = []
+		for i in range(2):
+			img = pygame.image.load(f'img/bush{i}.png')
+			self.image = pygame.transform.scale(img, (tile_size, int(tile_size*1.2)))
+			self.images.append(self.image)
+			self.image = pygame.transform.flip(self.image, True, False)
+			self.images.append(self.image)
+		#self.images[1],self.images[2] =self.images[2],self.images[1]
+		
+		self.rect = self.image.get_rect()
+		self.rect.x = x
+		self.rect.y = y
+		self.tick = 0
+		self.index = 0
+
+	def update(self,tick):
+		self.tick +=tick
+		# To animate the lava //in ms 4fps
+		if self.tick > 200 and randint(0,1):
+			self.tick = 0
+			self.index += 1
+			if self.index >= len(self.images):
+				self.index = 0
+			self.image = self.images[self.index]
+
+			
+
 class Water(pygame.sprite.Sprite):
 	def __init__(self, x, y,tile_size):
 		pygame.sprite.Sprite.__init__(self)
@@ -77,7 +108,7 @@ class Water(pygame.sprite.Sprite):
 	def update(self,tick):
 		self.tick +=tick
 		# To animate the lava //in ms 4fps
-		if self.tick > 50 :
+		if self.tick > 150 :
 			self.tick = 0
 			self.image = pygame.transform.flip(self.image, True, True)
 
@@ -116,13 +147,10 @@ class Enemy2(pygame.sprite.Sprite):
 		self.tick = 0
 	
 
-class Exit(pygame.sprite.Sprite):
+class Teleport(pygame.sprite.Sprite):
 	def __init__(self, x, y,tile_size):
 		pygame.sprite.Sprite.__init__(self)
-		img = pygame.image.load('img/Exit.png')
-		self.image = pygame.transform.scale(img, (tile_size, tile_size * 2))
-		self.rect = self.image.get_rect()
+		self.rect = Rect(x, y, tile_size, tile_size)
 		self.rect.x = x
-		self.rect.y = y - tile_size
-		self.tick = 0
+		self.rect.y = y		
 

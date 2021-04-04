@@ -37,9 +37,9 @@ class Engine():
 	def reset_level(self, level):
 		self.game_state = 0
 		self.house_group = HomeGroup(self)
-		self.coin_group = ModifiedGroup(self)
+		self.grass_group = ModifiedGroup(self)
 		self.water_group = ModifiedGroup(self)
-		self.exit_group = ModifiedGroup(self)
+		self.teleport_group = ModifiedGroup(self)
 
 		self.world = TileMap('map.csv', self)
 		self.tiles = self.world.tiles
@@ -109,16 +109,19 @@ class Engine():
 		self.tick = self.clock.get_time()
 		self.player.update()
 		self.camera.scroll()
-		self.water_group.update(self.dt)
+		self.water_group.update(self.tick)
+		self.grass_group.update(self.tick)
 
 	def draw(self):
 		#self.screen.fill((0,200,240))
 		self.screen.fill((0,0,0))
 		self.world.draw_world()
 		self.water_group.draw()
-		self.house_group.draw()
-		self.player.draw()
 		
+		
+		self.player.draw()
+		self.house_group.draw()
+		self.grass_group.draw()
 		#pygame.draw.rect(self.screen, (255, 0, 0), self.player.rect, 2)
 		pygame.display.update()
 
