@@ -150,12 +150,13 @@ class Player(pygame.sprite.Sprite):
 		hits = []
 		if pygame.sprite.spritecollideany(self, self.engine.house_group):
 			hits.append(pygame.sprite.spritecollideany(self, self.engine.house_group))
+		if pygame.sprite.spritecollideany(self, self.engine.enemy_group):
+			hits.append(pygame.sprite.spritecollideany(self, self.engine.enemy_group))
 		
 		for tile in tiles:
 			if self.rect.colliderect(tile):
-				if tile.can_collide :
-					hits.append(tile)
-					#print(tile.rect)		
+				hits.append(tile)
+				#print(tile.rect)		
 		return hits
 
 
@@ -173,8 +174,7 @@ class Player(pygame.sprite.Sprite):
 				self.rect.x = self.position.x 
 				self.velocity.x = 0
 				self.bump = True
-		
-			
+					
 
 	def checkCollisionsy(self, tiles):
 		collisions = self.get_hits(tiles)

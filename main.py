@@ -39,6 +39,7 @@ class Engine():
 		self.house_group = HomeGroup(self)
 		self.grass_group = ModifiedGroup(self)
 		self.water_group = ModifiedGroup(self)
+		self.enemy_group = ModifiedGroup(self)
 		self.teleport_group = ModifiedGroup(self)
 
 		self.world = TileMap('map.csv', self)
@@ -103,6 +104,7 @@ class Engine():
 				elif event.key == pygame.K_DOWN:
 					self.DOWN_KEY = False
 
+
 	def update(self):
 		self.dt = self.clock.tick(60) * .001 * self.FPS 
 		#print(self.clock.tick(60))
@@ -111,17 +113,19 @@ class Engine():
 		self.camera.scroll()
 		self.water_group.update(self.tick)
 		self.grass_group.update(self.tick)
+		self.enemy_group.update(self.tick)
+
 
 	def draw(self):
 		#self.screen.fill((0,200,240))
 		self.screen.fill((0,0,0))
 		self.world.draw_world()
 		self.water_group.draw()
-		
-		
-		self.player.draw()
 		self.house_group.draw()
 		self.grass_group.draw()
+		self.enemy_group.draw()
+		self.player.draw()
+		
 		#pygame.draw.rect(self.screen, (255, 0, 0), self.player.rect, 2)
 		pygame.display.update()
 

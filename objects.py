@@ -16,6 +16,7 @@ class Tile(pygame.sprite.Sprite):
 	def draw(self, surface):
 		surface.blit(self.image, (self.rect.x, self.rect.y))
 
+
 class Tree(pygame.sprite.Sprite):
 	def __init__(self, x, y):
 		pygame.sprite.Sprite.__init__(self)
@@ -32,7 +33,7 @@ class Tree(pygame.sprite.Sprite):
 
 class Enemy1(pygame.sprite.Sprite):
 
-	def __init__(self, x, y,q):
+	def __init__(self, x, y):
 		pygame.sprite.Sprite.__init__(self)
 		self.images_right = []
 		self.images_left = []
@@ -60,9 +61,9 @@ class Enemy1(pygame.sprite.Sprite):
 		self.rect.y = y
 		self.move_direction = 1
 		self.move_counter = 0
-		self.x_correction=0
 		self.direction=False
 		self.tick = 0
+		self.can_collide = True
 
 	def update(self,tick):
 		walk_cooldown = 15
@@ -104,15 +105,15 @@ class Grass(pygame.sprite.Sprite):
 		self.images[1],self.images[2] =self.images[2],self.images[1]
 		
 		self.rect = self.image.get_rect()
-		self.rect.x = x
-		self.rect.y = y
+		self.rect.x = x + randint(-6, 6)
+		self.rect.y = y + randint(-6, 6)
 		self.tick = 0
 		self.index = 0
 
 	def update(self,tick):
 		self.tick +=tick
 		# To animate the lava //in ms 4fps
-		if self.tick > 100 and randint(0,1):
+		if self.tick > 290 and randint(0,1) :
 			self.tick = 0
 			self.index += 1
 			if self.index >= len(self.images):

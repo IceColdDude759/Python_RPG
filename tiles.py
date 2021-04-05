@@ -130,6 +130,7 @@ class TileMap():
 				#nps
 				elif tile == '34':
 					tiles.append(Tile('img/rpgTile203', x * self.tile_size, y * self.tile_size, True))
+					self.engine.enemy_group.add(Enemy1(x * self.tile_size, y * self.tile_size))
 				elif tile == '35':
 					tiles.append(Tile('img/rpgTile204', x * self.tile_size, y * self.tile_size, True))
 				elif tile == '36':
