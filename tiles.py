@@ -120,6 +120,7 @@ class TileMap():
 				#house
 				elif tile == '31':
 					tiles.append(Tile('img/rpgTile200', x * self.tile_size, y * self.tile_size, True))
+					self.engine.house_group.add(House( x * self.tile_size, y * self.tile_size, self.tile_size, 'mid'))
 				elif tile == '32':
 					tiles.append(Tile('img/rpgTile201', x * self.tile_size, y * self.tile_size, True))
 				elif tile == '33':

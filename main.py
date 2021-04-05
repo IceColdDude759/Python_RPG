@@ -3,6 +3,7 @@ from spritesheetparser import Spritesheet
 from tiles import TileMap
 from camera import *
 from Player import *
+from hud import *
 
 
 
@@ -27,11 +28,14 @@ class Engine():
 		
 		self.reset_level(True)
 		
+		
 		self.dt = 0
 		self.menu = False
-		self.game_state = 0			
+		self.game_state = 0		
 		self.tick = 0
 		self.init_keys()
+		self.dialoge_box = TextDialouge(self)
+		self.dia = True
 
 
 	def reset_level(self, level):
@@ -64,6 +68,7 @@ class Engine():
 	def init_keys (self):
 		self.LEFT_KEY, self.RIGHT_KEY = False, False
 		self.UP_KEY, self.DOWN_KEY = False, False
+		self.SPACE = False
 
 
 	def input(self):
@@ -106,9 +111,7 @@ class Engine():
 
 
 	def update(self):
-		self.dt = self.clock.tick(60) * .001 * self.FPS 
 		#print(self.clock.tick(60))
-		self.tick = self.clock.get_time()
 		self.player.update()
 		self.camera.scroll()
 		self.water_group.update(self.tick)
@@ -117,7 +120,7 @@ class Engine():
 
 
 	def draw(self):
-		#self.screen.fill((0,200,240))
+		#self.screen.fill((0,200,240))	
 		self.screen.fill((0,0,0))
 		self.world.draw_world()
 		self.water_group.draw()
@@ -127,11 +130,12 @@ class Engine():
 		self.player.draw()
 		
 		#pygame.draw.rect(self.screen, (255, 0, 0), self.player.rect, 2)
-		pygame.display.update()
+		
 
 
 	def mainloop(self):
-
+		self.dt = self.clock.tick(60) * .001 * self.FPS 
+		self.tick = self.clock.get_time()
 		self.input()
 
 		if self.menu:
@@ -157,7 +161,13 @@ class Engine():
 
 			elif self.game_state == 2:
 				#dialoge
-				pass
+				#print("aaa")
+				if self.dia:
+					self.dialoge_box.show("Alice : This is a house,@ go away")
+					self.dia =False
+				self.dialoge_box.update()
+				
+				
 
 			elif self.game_state == 1:
 				#for entering house and shit
@@ -166,7 +176,7 @@ class Engine():
 			elif self.game_state == 5:
 				#pause menu
 				pass
-
+		pygame.display.update()
 
 
 

@@ -20,7 +20,7 @@ class Tile(pygame.sprite.Sprite):
 class Tree(pygame.sprite.Sprite):
 	def __init__(self, x, y):
 		pygame.sprite.Sprite.__init__(self)
-		self.image = pygame.image.load('img/Tree(1).png')
+		self.image = pygame.image.load('img/tree0.png')
 		self.image = pygame.transform.scale(self.image, (32, 64))
 		self.rect = self.image.get_rect()
 		self.rect.x, self.rect.y = x, y
@@ -148,8 +148,8 @@ class House(pygame.sprite.Sprite):
 			self.image = pygame.transform.scale(img,(128,128))
 			self.offset = 48
 		elif type == 'mid':
-			img = pygame.image.load('img/house_final.png')
-			self.image = pygame.transform.scale(img,(128,128))
+			img = pygame.image.load('img/house2.png')
+			self.image = pygame.transform.scale(img,(262,198))
 			self.offset = 48
 		elif type == 'big':
 			img = pygame.image.load('img/house_final.png')

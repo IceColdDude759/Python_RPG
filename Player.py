@@ -150,6 +150,8 @@ class Player(pygame.sprite.Sprite):
 		hits = []
 		if pygame.sprite.spritecollideany(self, self.engine.house_group):
 			hits.append(pygame.sprite.spritecollideany(self, self.engine.house_group))
+			self.engine.game_state = 2
+			self.engine.dia = True
 		if pygame.sprite.spritecollideany(self, self.engine.enemy_group):
 			hits.append(pygame.sprite.spritecollideany(self, self.engine.enemy_group))
 		
