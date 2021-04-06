@@ -34,7 +34,7 @@ class Engine():
 		self.game_state = 0		
 		self.tick = 0
 		self.init_keys()
-		self.dialoge_box = TextDialouge(self)
+		self.dialoge_box = TextDialogue(self)
 		self.dia = True
 
 
@@ -68,7 +68,7 @@ class Engine():
 	def init_keys (self):
 		self.LEFT_KEY, self.RIGHT_KEY = False, False
 		self.UP_KEY, self.DOWN_KEY = False, False
-		self.SPACE = False
+		self.SPACE_KEY = False
 
 
 	def input(self):
@@ -87,6 +87,8 @@ class Engine():
 					self.UP_KEY = True
 				elif event.key == pygame.K_DOWN:
 					self.DOWN_KEY = True
+				elif event.key == pygame.K_SPACE:
+					self.SPACE_KEY = True
 
 				## HANDEL CAMERA MOVEMENT	
 				elif event.key == pygame.K_1:
@@ -108,6 +110,8 @@ class Engine():
 					self.UP_KEY = False
 				elif event.key == pygame.K_DOWN:
 					self.DOWN_KEY = False
+				elif event.key == pygame.K_SPACE:
+					self.SPACE_KEY = False
 
 
 	def update(self):
@@ -163,7 +167,7 @@ class Engine():
 				#dialoge
 				#print("aaa")
 				if self.dia:
-					self.dialoge_box.show("Alice : This is a house,@ go away")
+					self.dialoge_box.show("Everything was going \nwell on the village , up till one day, whenit was attacked by the Skylers . Houses were set on fire, people were killed, crops were destroyed. They seeked the golden sword. It was believed to have contain the flames of the holy nine-tails#shit for centuries. It is said that only worthy villagers ")
 					self.dia =False
 				self.dialoge_box.update()
 				

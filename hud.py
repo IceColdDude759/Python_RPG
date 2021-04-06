@@ -1,6 +1,6 @@
 import pygame
 
-class TextDialouge():
+class TextDialogue():
 	def __init__(self,engine):
 		self.engine = engine
 		self.tick = 0
@@ -30,29 +30,28 @@ class TextDialouge():
 	def update(self):
 		self.tick+=self.engine.tick
 
-		if self.engine.SPACE:
-			self.tick+=20
+		if self.engine.SPACE_KEY:
+			self.tick+=50
 
 		
 		if self.tick>50:
 			self.tick =0
 			char = self.text_seive()
-			if  char:
-				if char == '@':
-					self.xx ,self.yy = 50,30
-					self.surface.fill((0,0,0))
-					self.page = True
-					return
-
-				elif self.xx >= 730 and self.page:
-					self.xx ,self.yy = 45,60
-					self.page = False
-
-				elif self.xx >= 730 and not(self.page):
-					self.xx ,self.yy = 50,30
-					self.surface.fill((0,0,0))
-					self.page = True
-
+			if self.xx >= 690 and self.page and char==' ':
+				self.xx ,self.yy = 50,55
+				self.page = False
+				self.last_char = ''
+			elif self.xx >= 690 and not(self.page) and char==' ' :
+				self.xx ,self.yy = 50,30
+				self.surface.fill((0,0,0))
+				self.page = True
+				self.last_char = ''
+			elif char == '@' :
+				self.xx ,self.yy = 50,30
+				self.surface.fill((0,0,0))
+				self.page = True
+				self.last_char = ''
+			elif  char:
 				i =self.font.size(self.last_char)[0]
 				self.xx += i
 				self.last_char = char
@@ -61,7 +60,11 @@ class TextDialouge():
 			
 
 			elif not(char):
-				self.engine.game_state = 0
-				self.xx ,self.yy = 50,30
-				self.surface.fill((0,0,0))
-	
+				
+				if self.engine.SPACE_KEY:
+					self.engine.game_state = 0
+					self.xx ,self.yy = 50,30
+					self.surface.fill((0,0,0))
+					self.page = True
+					self.last_char = ''
+		
