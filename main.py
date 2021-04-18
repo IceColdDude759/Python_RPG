@@ -79,11 +79,12 @@ class Engine():
 
 	def daynight(self):
 		time=self.time
-		if time >= 4800:
-				time = 0
-				print('1')
-		elif time >= 2400:
-				print('2')
+		if time >= 2400 and time < 4800:
+			print('1')
+
+		elif time >= 4800:
+			time = 0
+			print('2')
 
 	def input(self):
 		for event in pygame.event.get():
