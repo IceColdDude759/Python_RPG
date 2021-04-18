@@ -4,7 +4,7 @@ from tiles import TileMap
 from camera import *
 from Player import *
 from hud import *
-
+import json
 
 
 class Engine():
@@ -29,7 +29,9 @@ class Engine():
 		self.reset_level('mainmap')
 		
 		
+		
 		self.dt = 0
+		self.time = 0
 		self.menu = False
 		self.game_state = 0		
 		self.tick = 0
@@ -47,6 +49,9 @@ class Engine():
 		self.teleport_group = ModifiedGroup(self)
 		self.tree_group = ModifiedGroup(self)
 
+		with open('map/mainmap.json') as f:
+			self.gates = json.load(f)
+		level = self.gates[level]
 		self.world = TileMap(f'map/{level}.csv', self)
 		self.tiles = self.world.tiles
 		self.left_border = 0
@@ -71,6 +76,14 @@ class Engine():
 		self.UP_KEY, self.DOWN_KEY = False, False
 		self.SPACE_KEY = False
 
+
+	def daynight(self):
+		time=self.time
+		if time >= 4800:
+				time = 0
+				print('1')
+		elif time >= 2400:
+				print('2')
 
 	def input(self):
 		for event in pygame.event.get():
@@ -142,6 +155,8 @@ class Engine():
 	def mainloop(self):
 		self.dt = self.clock.tick(60) * .001 * self.FPS 
 		self.tick = self.clock.get_time()
+		self.time += self.tick/1000
+		self.daynight()
 		self.input()
 
 		if self.menu:
