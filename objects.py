@@ -6,7 +6,8 @@ from random import randint
 class Tile(pygame.sprite.Sprite):
 	def __init__(self, image, x, y,can_collide):
 		pygame.sprite.Sprite.__init__(self)
-		self.image = pygame.image.load(image+'.png')
+		self.image = pygame.image.load(image+'.png').convert()
+		pygame.Surface.set_colorkey(self.image,(255,255,255))
 		#self.image = pygame.transform.scale(img, (50, 80))
 		#self.image = spritesheet.get_sprite(image), spritesheet
 		self.rect = self.image.get_rect()
@@ -20,7 +21,8 @@ class Tile(pygame.sprite.Sprite):
 class Tree(pygame.sprite.Sprite):
 	def __init__(self, x, y):
 		pygame.sprite.Sprite.__init__(self)
-		self.image = pygame.image.load('img/tree0.png')
+		self.image = pygame.image.load('img/Tree(3).png').convert()
+		pygame.Surface.set_colorkey(self.image,(255,255,255))
 		self.image = pygame.transform.scale(self.image, (32, 64))
 		self.rect = self.image.get_rect()
 		self.rect.x, self.rect.y = x, y
@@ -179,5 +181,6 @@ class Teleport(pygame.sprite.Sprite):
 		pygame.sprite.Sprite.__init__(self)
 		self.rect = Rect(x, y, tile_size, tile_size)
 		self.rect.x = x
-		self.rect.y = y		
+		self.rect.y = y	
+		print(str(x)+'_'+str(y))	
 

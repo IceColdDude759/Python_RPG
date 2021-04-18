@@ -26,7 +26,7 @@ class Engine():
 		pygame.display.set_caption(self.title)
 
 		
-		self.reset_level(True)
+		self.reset_level('mainmap')
 		
 		
 		self.dt = 0
@@ -45,8 +45,9 @@ class Engine():
 		self.water_group = ModifiedGroup(self)
 		self.enemy_group = ModifiedGroup(self)
 		self.teleport_group = ModifiedGroup(self)
+		self.tree_group = ModifiedGroup(self)
 
-		self.world = TileMap('map.csv', self)
+		self.world = TileMap(f'map/{level}.csv', self)
 		self.tiles = self.world.tiles
 		self.left_border = 0
 		self.top_border = 0
@@ -131,6 +132,7 @@ class Engine():
 		self.house_group.draw()
 		self.grass_group.draw()
 		self.enemy_group.draw()
+		self.tree_group.draw()
 		self.player.draw()
 		
 		#pygame.draw.rect(self.screen, (255, 0, 0), self.player.rect, 2)
@@ -167,7 +169,7 @@ class Engine():
 				#dialoge
 				#print("aaa")
 				if self.dia:
-					self.dialoge_box.show("Everything was going \nwell on the village , up till one day, whenit was attacked by the Skylers . Houses were set on fire, people were killed, crops were destroyed. They seeked the golden sword. It was believed to have contain the flames of the holy nine-tails#shit for centuries. It is said that only worthy villagers ")
+					self.dialoge_box.show("Everything was going \nwell@ on the village , up till one day, whenit was attacked by the Skylers . Houses were set on fire, people were killed, crops were destroyed. They seeked the golden sword. It was believed to have contain the flames of the holy nine-tails#shit for centuries. It is said that only worthy villagers ")
 					self.dia =False
 				self.dialoge_box.update()
 				

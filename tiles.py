@@ -10,7 +10,7 @@ class TileMap():
 		#self.spritesheet = spritesheet
 		self.tiles = self.load_tiles(filename)
 		self.map_surface = pygame.Surface((self.map_w, self.map_h))
-		self.map_surface.set_colorkey((0, 0, 0))
+		#self.map_surface.set_colorkey((0, 0, 0))
 		self.load_map()
 		self.tiles=[elem for elem in self.tiles if elem.can_collide]
 	
@@ -107,9 +107,13 @@ class TileMap():
 					tiles.append(Tile('img/rpgTile177', x * self.tile_size, y * self.tile_size, True))
 				elif tile == '28':
 					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, True))
-					tiles.append(Tile('img/rpgTile179', x * self.tile_size, y * self.tile_size, True))
+					self.engine.tree_group.add(Tree( x * self.tile_size, y * self.tile_size))
 					#tiles.append(Tile('img/rpgTile157', x * self.tile_size, y * self.tile_size, True))
-
+				#tree
+				elif tile == '45':
+					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+					self.engine.tree_group.add(Tree(x * self.tile_size, y * self.tile_size))
+				
 				elif tile == '29':
 					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, True))
 					tiles.append(Tile('img/rpgTile197', x * self.tile_size, y * self.tile_size, True))
@@ -153,7 +157,7 @@ class TileMap():
 				
 				#teleport
 				elif tile == '43':
-					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
+					tiles.append(Tile('img/dirt', x * self.tile_size, y * self.tile_size, False))
 					self.engine.teleport_group.add(Teleport(x * self.tile_size, y * self.tile_size, self.tile_size))
 
 				#grass
@@ -161,11 +165,6 @@ class TileMap():
 					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
 					self.engine.grass_group.add(Grass(x * self.tile_size, y * self.tile_size, self.tile_size))
 
-				#tree
-				elif tile == '45':
-					#tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))
-					tiles.append(Tree(x * self.tile_size, y * self.tile_size))
-				
 				#deadtree
 				elif tile == '46':
 					tiles.append(Tile('img/grass', x * self.tile_size, y * self.tile_size, False))

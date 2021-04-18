@@ -1,5 +1,5 @@
 import pygame
-from spritesheetparser import Spritesheet
+from pygame import gfxdraw
 
 class Player(pygame.sprite.Sprite):
 	def __init__(self,engine):
@@ -17,10 +17,12 @@ class Player(pygame.sprite.Sprite):
 		self.index = 0
 		self.tick = 0
 		self.bump = False
+		
+		
 
 	def draw(self):
 		self.animate()
-
+		self.engine.screen.blit(self.shadow,(self.rect.x -self.engine.camera.offset.x, self.rect.bottom-self.engine.camera.offset.y))
 		self.engine.screen.blit(self.image, (self.rect.x -12 - self.engine.camera.offset.x, self.rect.y - 24 - self.engine.camera.offset.y))
 
 
@@ -39,8 +41,10 @@ class Player(pygame.sprite.Sprite):
 		self.acceleration.x = 0
 		if self.engine.LEFT_KEY and not self.bump:
 			self.acceleration.x -= .6
+			self.facing_right = False
 		elif self.engine.RIGHT_KEY and not self.bump:
 			self.acceleration.x += .6
+			self.facing_right = True
 		self.acceleration.x += self.velocity.x * self.friction
 		self.velocity.x += self.acceleration.x * dt
 		self.limit_x_velocity(self.max_vel)
@@ -89,36 +93,26 @@ class Player(pygame.sprite.Sprite):
 			if self.rect.y > death-200 and self.loop_delay:
 				self.image = self.dead_img
 				self.rect.y -= 1
-		else :
-			#jump animeation
-			if   self.velocity.y < 0:
-				if self.facing_right:
-					self.image = self.jump_img[0]
-				else:
-					self.image = self.jump_img[2]
-				return
-			if  self.velocity.y > 0:
-				if self.facing_right:
-					self.image = self.jump_img[1]
-				else:
-					self.image = self.jump_img[3]
-				return
-
+		else :	
 			#walk animation
 			self.tick += self.engine.tick
-			if self.velocity.x != 0  and self.tick > 80:
+			if (self.velocity.x != 0 or self.velocity.y != 0) and self.tick > 80:
 				self.tick = 0
 				self.index +=1
 				if self.index >= len(self.right_img):
 					self.index = 0
-				if self.velocity.x > 0 :
+				if self.velocity.x > 0 or self.facing_right:
 					self.image = self.right_img[self.index]
-				elif self.velocity.x < 0 :
+				elif self.velocity.x < 0 or not(self.facing_right):
 					self.image = self.left_img[self.index]
 				return
 			#idle animation
-			if 	self.velocity.x == 0  and self.tick > 150 :
-				self.image = self.idle_img
+			if 	self.velocity.x == 0  and self.velocity.y == 0  and self.tick > 150 :
+				if self.facing_right:
+					self.image = self.idle_img#self.right_img[0]
+				elif not(self.facing_right):
+					self.image = self.idle_img#self.left_img[0]
+
 						
 
 	def load(self):
@@ -145,15 +139,26 @@ class Player(pygame.sprite.Sprite):
 		#self.coin_fx.set_volume(0.5)
 		self.image = self.idle_img
 
+		self.shadow =pygame.surface.Surface((34,34)).convert_alpha()
+		#
+		self.shadow.fill((0,0,0,0))
+		pygame.gfxdraw.filled_circle(self.shadow,17,17,9,(0,0,0,180))
+
 
 	def get_hits(self, tiles):
 		hits = []
-		if pygame.sprite.spritecollideany(self, self.engine.house_group):
-			hits.append(pygame.sprite.spritecollideany(self, self.engine.house_group))
-			self.engine.game_state = 2
-			self.engine.dia = True
-		if pygame.sprite.spritecollideany(self, self.engine.enemy_group):
-			hits.append(pygame.sprite.spritecollideany(self, self.engine.enemy_group))
+		hit = pygame.sprite.spritecollideany(self, self.engine.house_group)
+		if hit:
+			hits.append(hit)
+			#self.engine.game_state = 2
+			#self.engine.dia = True
+		hit = pygame.sprite.spritecollideany(self, self.engine.enemy_group)
+		if hit:
+			hits.append(hit)
+
+		hit = pygame.sprite.spritecollideany(self, self.engine.teleport_group)
+		if hit:
+			self.engine.reset_level(str(hit.rect.x)+'_'+str(hit.rect.y))
 		
 		for tile in tiles:
 			if self.rect.colliderect(tile):
