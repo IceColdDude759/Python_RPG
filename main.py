@@ -29,7 +29,9 @@ class Engine():
 		self.reset_level('mainmap')
 		
 		
-		
+		self.night = self.screen.copy()
+		self.night.convert_alpha()
+		self.night.fill((200,200,200,250))
 		self.dt = 0
 		self.time = 0
 		self.menu = False
@@ -79,12 +81,15 @@ class Engine():
 
 	def daynight(self):
 		time=self.time
-		if time >= 2400 and time < 4800:
-			print('1')
+		if time > 6:
+			self.time = 0
 
-		elif time >= 4800:
-			time = 0
-			print('2')
+			#print('2')
+		elif time > 3:
+			self.screen.blit(self.night,(0,0),special_flags=pygame.BLEND_RGBA_MULT)
+			#print('1')
+
+		
 
 	def input(self):
 		for event in pygame.event.get():
@@ -157,8 +162,8 @@ class Engine():
 		self.dt = self.clock.tick(60) * .001 * self.FPS 
 		self.tick = self.clock.get_time()
 		self.time += self.tick/1000
-		self.daynight()
-		print(self.time)
+		
+		#print(self.time)
 		self.input()
 
 		if self.menu:
@@ -199,6 +204,8 @@ class Engine():
 			elif self.game_state == 5:
 				#pause menu
 				pass
+
+		self.daynight()
 		pygame.display.update()
 
 
