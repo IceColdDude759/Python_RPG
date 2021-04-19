@@ -28,6 +28,7 @@ class Player(pygame.sprite.Sprite):
 		self.engine.screen.blit(self.image, (self.rect.x -12 - self.engine.camera.offset.x, self.rect.y - 24 - self.engine.camera.offset.y))
 		self.engine.screen.blit(self.sword,(self.rect.x +24 - self.engine.camera.offset.x, self.rect.y - 4 - self.engine.camera.offset.y))
 
+
 	def update(self):
 		
 		#print(self.rect)
@@ -53,7 +54,6 @@ class Player(pygame.sprite.Sprite):
 		self.position.x += self.velocity.x * dt + (self.acceleration.x * .5) * (dt * dt)
 		self.rect.x = self.position.x
 		
-
 
 	def vertical_movement(self,dt):
 		self.acceleration.y = 0
