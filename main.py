@@ -4,6 +4,7 @@ from tiles import TileMap
 from camera import *
 from Player import *
 from hud import *
+from math import ceil
 import json
 
 
@@ -32,9 +33,12 @@ class Engine():
 		self.night = self.screen.copy()
 		self.night.convert()
 		self.night.fill((250,250,250))
-		self.daytime = 8
+		self.daytime = 120
+		self.color_increment = 120/(self.daytime/6)
+		self.color = 130
 		self.dt = 0
-		self.time = 0
+		self.time = 35
+		self.previous_time = 0
 		self.menu = False
 		self.game_state = 0		
 		self.tick = 0
@@ -81,27 +85,36 @@ class Engine():
 
 
 	def daynight(self):
-		time=self.time
-		if time > self.daytime:
-			#night tp day
+		
+		if self.time > self.daytime:
+			#reset day
 			self.time = 0
-			self.night.fill((170,170,250))
+					
+		elif self.time < (1/6)*self.daytime:
+			#night to day
+			if 	self.time > self.previous_time and self.color+self.color_increment < 255:
+				self.color += self.color_increment
+			self.night.fill((self.color,self.color,255))
 
-		elif time > (7/8)*self.daytime:
+		elif self.time > (4/6)*self.daytime:
 			#night
-			self.night.fill((130,130,250))
+			self.night.fill((130,130,255))
+			self.color = 130
 			
-		elif time > (5/8)*self.daytime:
-			#day to night	
-			self.night.fill((170,170,250))
+		elif self.time > (3/6)*self.daytime:
+			#day to night
+			if 	self.time > self.previous_time and self.color-self.color_increment > 130:
+				self.color -= self.color_increment	
+			self.night.fill((self.color,self.color,255))
 
-		elif time > (3/8)*self.daytime:	
+		elif self.time > (1/6)*self.daytime:	
 			#day
-			self.night.fill((250,250,250))
+			self.night.fill((255,255,255))
+			self.color = 255
 		
-		
-
+		self.previous_time = ceil(self.time)
 		self.screen.blit(self.night,(0,0),special_flags=pygame.BLEND_RGBA_MULT)
+
 
 	def input(self):
 		for event in pygame.event.get():
@@ -193,6 +206,7 @@ class Engine():
 			if self.game_state == 0:
 				self.draw()
 				self.update()
+				self.daynight()
 				#self.draw_hud()
 
 			elif self.game_state == -1:
@@ -217,7 +231,7 @@ class Engine():
 				#pause menu
 				pass
 
-		self.daynight()
+		
 		pygame.display.update()
 
 

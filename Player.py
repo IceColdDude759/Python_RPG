@@ -17,14 +17,16 @@ class Player(pygame.sprite.Sprite):
 		self.index = 0
 		self.tick = 0
 		self.bump = False
+		self.sword = pygame.image.load('img/sword.png')
 		
 		
 
 	def draw(self):
 		self.animate()
+		
 		self.engine.screen.blit(self.shadow,(self.rect.x -self.engine.camera.offset.x, self.rect.bottom-self.engine.camera.offset.y))
 		self.engine.screen.blit(self.image, (self.rect.x -12 - self.engine.camera.offset.x, self.rect.y - 24 - self.engine.camera.offset.y))
-
+		self.engine.screen.blit(self.sword,(self.rect.x +24 - self.engine.camera.offset.x, self.rect.y - 4 - self.engine.camera.offset.y))
 
 	def update(self):
 		
