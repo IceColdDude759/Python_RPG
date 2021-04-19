@@ -30,8 +30,9 @@ class Engine():
 		
 		
 		self.night = self.screen.copy()
-		self.night.convert_alpha()
-		self.night.fill((200,200,200,250))
+		self.night.convert()
+		self.night.fill((250,250,250))
+		self.daytime = 8
 		self.dt = 0
 		self.time = 0
 		self.menu = False
@@ -40,7 +41,7 @@ class Engine():
 		self.init_keys()
 		self.dialoge_box = TextDialogue(self)
 		self.dia = True
-
+		
 
 	def reset_level(self, level):
 		self.game_state = 0
@@ -81,15 +82,26 @@ class Engine():
 
 	def daynight(self):
 		time=self.time
-		if time > 6:
+		if time > self.daytime:
+			#night tp day
 			self.time = 0
+			self.night.fill((170,170,250))
 
-			#print('2')
-		elif time > 3:
-			self.screen.blit(self.night,(0,0),special_flags=pygame.BLEND_RGBA_MULT)
-			#print('1')
+		elif time > (7/8)*self.daytime:
+			#night
+			self.night.fill((130,130,250))
+			
+		elif time > (5/8)*self.daytime:
+			#day to night	
+			self.night.fill((170,170,250))
 
+		elif time > (3/8)*self.daytime:	
+			#day
+			self.night.fill((250,250,250))
 		
+		
+
+		self.screen.blit(self.night,(0,0),special_flags=pygame.BLEND_RGBA_MULT)
 
 	def input(self):
 		for event in pygame.event.get():
@@ -163,7 +175,7 @@ class Engine():
 		self.tick = self.clock.get_time()
 		self.time += self.tick/1000
 		
-		#print(self.time)
+		print(self.time)
 		self.input()
 
 		if self.menu:
