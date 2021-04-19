@@ -157,7 +157,7 @@ class TileMap():
 				
 				#teleport
 				elif tile == '43':
-					tiles.append(Tile('img/dirt', x * self.tile_size, y * self.tile_size, False))
+					#tiles.append(Tile('img/dirt', x * self.tile_size, y * self.tile_size, False))
 					self.engine.teleport_group.add(Teleport(x * self.tile_size, y * self.tile_size, self.tile_size))
 
 				#grass

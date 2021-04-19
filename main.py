@@ -175,7 +175,7 @@ class Engine():
 		self.tick = self.clock.get_time()
 		self.time += self.tick/1000
 		
-		print(self.time)
+		#print(self.time)
 		self.input()
 
 		if self.menu:
