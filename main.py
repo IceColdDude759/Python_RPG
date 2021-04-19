@@ -1,4 +1,4 @@
-import pygame
+import pygame,random
 from spritesheetparser import Spritesheet
 from tiles import TileMap
 from camera import *
